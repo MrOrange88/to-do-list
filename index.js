@@ -1,20 +1,40 @@
 const express = require('express');
-const app = express();
+const bodyparser = require('body-parser');
+const todo = require('./todo');
 
+const app = express();
+app.use(bodyparser.json());
 app.get('/todos', (req, res) => {
-    res.sendStatus(503);
+    res.json(todo.allTodos());
 });
 app.get('/todos/:todoId', (req, res) => {
-    res.sendStatus(503);
+    res.json(req.todo);
 });
 app.post('/todos', (req, res) => {
-    res.sendStatus(503);
+    if (!req.body.title) return res.sendStatus(400)
+
+    const result = todo.createTodo(req.body.title)
+    res.json(result)
 });
 app.put('/todos/:todoId', (req, res) => {
-    res.sendStatus(503);
+    if (!req.body.title) return res.sendStatus(400)
+
+    const result = todo.updateTodo(Number(req.params.todoId), req.body.title)
+    if (!result) return res.status(404).send('kein todo für todoId gefunden')
+
+    res.json(result);
 });
 app.delete('/todos/:todoId', (req, res) => {
-    res.sendStatus(503);
+    todo.deleteTodo(req.todo.id)
+    res.sendStatus(204);
+
 });
+app.param('todoId', (req, res, next, id) => {
+    const todoId = Number(id)
+    const result = todo.oneTodo(todoId)
+    if (!result) return res.status(404).send('kein todo für todoId gefunden')
+    req.todo = result
+    next()
+})
 app.listen(3000, () => console.log('server läuft auf port 3000'));
 
