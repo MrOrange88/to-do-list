@@ -16,6 +16,7 @@ const todos = [
         title: "fahrrad fahren"
     }
 ];
+let todoindex = todos.length;
 
 function allTodos() {
     return todos;
@@ -36,7 +37,8 @@ function oneTodo(id) {
  * @param {string} title 
  */
 function createTodo(title) {
-    const todo = { id: todos.length + 1, title }
+    todoindex += 1
+    const todo = { id: todoindex, title }
     todos.push(todo)
     return todo;
 }
