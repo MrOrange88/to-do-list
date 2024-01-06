@@ -4,13 +4,28 @@ const todo = require('./todo');
 todo.init();
 
 const app = express();
+app.set('view engine', 'ejs');
 app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({
+    extended: true
+}));
+app.use(express.static('public', {
+    index: false
+}))
+app.get('/', (req, res) => {
+    res.render('index', {
+        name: 'Alex'
+    })
+})
 app.get('/todos', (req, res) => {
     const filter = {
         onlyFinished: Object.hasOwn(req.query, 'only-finished'),
         onlyNonFinished: Object.hasOwn(req.query, 'only-non-finished')
     }
-    res.json(todo.allTodos(filter));
+    // res.json(todo.allTodos(filter));
+    res.render('todos', {
+        todos: todo.allTodos(filter)
+    });
 });
 app.get('/todos/:todoId', (req, res) => {
     res.json(req.todo);
@@ -19,7 +34,8 @@ app.post('/todos', (req, res) => {
     if (!req.body.title) return res.sendStatus(400)
 
     const result = todo.createTodo(req.body.title)
-    res.json(result)
+    // res.json(result)
+    res.redirect('/todos')
 });
 app.put('/todos/:todoId', (req, res) => {
     if (!req.body.title) return res.sendStatus(400)
