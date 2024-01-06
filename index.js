@@ -1,11 +1,16 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 const todo = require('./todo');
+todo.init();
 
 const app = express();
 app.use(bodyparser.json());
 app.get('/todos', (req, res) => {
-    res.json(todo.allTodos());
+    const filter = {
+        onlyFinished: Object.hasOwn(req.query, 'only-finished'),
+        onlyNonFinished: Object.hasOwn(req.query, 'only-non-finished')
+    }
+    res.json(todo.allTodos(filter));
 });
 app.get('/todos/:todoId', (req, res) => {
     res.json(req.todo);

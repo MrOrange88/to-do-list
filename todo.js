@@ -1,31 +1,52 @@
-const todos = [
-    {
-        id: 1,
-        title: "äpfel kaufen"
-    },
-    {
-        id: 2,
-        title: "Bannanen kaufen"
-    },
-    {
-        id: 3,
-        title: "buch kaufen"
-    },
-    {
-        id: 4,
-        title: "fahrrad fahren"
-    }
-];
-let todoindex = todos.length;
+const { json } = require("body-parser");
+const queryParser = require('query-parser-express');
+const fs = require("fs")
+const path = require("path")
 
-function allTodos() {
-    return todos;
+/**
+ * @typedef {Object} Todo
+ * @property {number} id
+ * @property {string} title
+ * @property {string} description
+ * @property {Date} created
+ * @property {Date} finished
+ * 
+ * @typedef {Object} AllTodosFilter
+ * @property {boolean} onlyFinished
+ * @property {boolean} onlyNonFinished
+ */
+
+const pathTofile = path.join(__dirname, 'todos.json')
+/**
+ * @type {Todo[]}
+ */
+let todos = [];
+let todoindex = todos.length;
+/**
+ * 
+ * @param {AllTodosFilter} filter 
+ * @returns {Todo[]}
+ */
+function allTodos(filter) {
+    if (!filter) return todos;
+    return todos
+        .filter(t => !filter.onlyFinished || t.finished)
+        .filter(t => !filter.onlyNonFinished || !t.finished);
+}
+function writeTodos() {
+    const data = { todos, todoindex };
+    const json = JSON.stringify(data, null, 4);
+    fs.writeFileSync(pathTofile, json);
+}
+
+function readTodos() {
+    const data = fs.readFileSync(pathTofile)
+    const parsedData = JSON.parse(data)
+    todos = parsedData.todos
+    todoindex = parsedData.todoindex
 }
 const predicate = id => value => value.id === id
-//function suchpredicate(id){
-//return function predicate(value){
-//   return value.id === id
-//}}
+
 /**
  * @param {number} id id of todo element
  */
@@ -40,6 +61,7 @@ function createTodo(title) {
     todoindex += 1
     const todo = { id: todoindex, title }
     todos.push(todo)
+    writeTodos();
     return todo;
 }
 /**
@@ -53,7 +75,8 @@ function updateTodo(id, title) {
     if (!todo) return;       // Das ! ist eine Verneinung(not)
 
     //eintrag title bearbeiten
-    todo.title = title // Zuweisung 
+    todo.title = title // Zuweisung
+    writeTodos();
     return todo
 
 
@@ -63,14 +86,20 @@ function deleteTodo(id) {
     if (index < 0)
         return;
     todos.splice(index, 1)
+    writeTodos();
 
 }
+
+
 
 module.exports = {
     allTodos,
     oneTodo,
     createTodo,
     updateTodo,
-    deleteTodo
+    deleteTodo,
+    init: function () {
+        readTodos();
+    }
 
 }

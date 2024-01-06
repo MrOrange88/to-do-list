@@ -1,0 +1,26 @@
+{
+    "todos": [
+        {
+            "id": 1,
+            "title": "Äpfel kaufen",
+            "description": "",
+            "created": 0,
+            "finished": 1
+        },
+        {
+            "id": 4,
+            "title": "Auto kaufen",
+            "description": "",
+            "created": 0,
+            "finished": 0
+        },
+        {
+            "id": 5,
+            "title": "Klopapier kaufen",
+            "description": "",
+            "created": 0,
+            "finished": 0
+        }
+    ],
+    "todoindex": 5
+}
