@@ -42,13 +42,16 @@ app.get('/todos/:todoId', (req, res) => {
 app.post('/todos', (req, res) => {
   if (!req.body.title) return res.sendStatus(400);
 
-  const result = todo.createTodo(req.body.title);
+  const result = todo.createTodo(req.body.title, req.body.description);
   res.jsonOrRender('todo/show', result);
 });
 app.put('/todos/:todoId', (req, res) => {
-  if (!req.body.title) return res.sendStatus(400);
-
-  const result = todo.updateTodo(Number(req.params.todoId), req.body.title);
+  const result = todo.updateTodo(
+    Number(req.params.todoId),
+    req.body.title,
+    req.body.description,
+    req.body.finished
+  );
   if (!result) return res.status(404).send('kein todo für todoId gefunden');
 
   res.jsonOrRender('todo/show', result);

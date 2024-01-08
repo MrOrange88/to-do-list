@@ -1,19 +1,27 @@
 @url = http://localhost:3000
 
 ### load all todos
-
 GET {{url}}/todos
-# Accept: application/json
+Accept: application/json
 
 ### get single todo
-
 GET {{url}}/todos/1
 # Accept: application/json
 
 ### create a new todo
 POST {{url}}/todos
+Accept: application/json
 Content-Type: application/json
 
 {
-    
+    "title": "Test"
+}
+
+### update a new todo
+PUT {{url}}/todos/12
+Accept: application/json
+Content-Type: application/json
+
+{
+  "finished": null
 }
