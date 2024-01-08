@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -13,8 +13,8 @@
 <body>
     <ul>
         <% todos.forEach(function(todo){ %>
-            <%- include('todo/show', {todo: todo}); %>
-                <% }); %>
+            <%- include('todo/show', todo); %>
+        <% }); %>
     </ul>
     <%- include('todo/create'); %>
 </body>
