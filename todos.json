@@ -53,14 +53,6 @@
             "created": 1704743816631,
             "updated": 1704743907452,
             "finished": 0
-        },
-        {
-            "id": 12,
-            "title": "Test",
-            "description": "test",
-            "created": 1704744206567,
-            "updated": 1704744880061,
-            "finished": 123
         }
     ],
     "todoindex": 12

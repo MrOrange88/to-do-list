@@ -25,3 +25,7 @@ Content-Type: application/json
 {
   "finished": null
 }
+
+### delete single todo
+DELETE {{url}}/todos/12
+# Accept: application/json
