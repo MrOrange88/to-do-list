@@ -32,7 +32,28 @@
         {
             "id": 8,
             "title": "schlüssel finden "
+        },
+        {
+            "id": 9,
+            "title": "Müll rausbringen",
+            "created": 1704743081041,
+            "finished": 0
+        },
+        {
+            "id": 10,
+            "title": "WC reinigen",
+            "description": "",
+            "created": 1704743205978,
+            "finished": 0
+        },
+        {
+            "id": 11,
+            "title": "Geile Kiste fertigstellen",
+            "description": "Die geile Kiste macht alles darin noch geiler. Darum geil geil. Und manchmal noch geiler",
+            "created": 1704743816631,
+            "updated": 1704743907452,
+            "finished": 0
         }
     ],
-    "todoindex": 8
+    "todoindex": 12
 }
