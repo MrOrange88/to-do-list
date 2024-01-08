@@ -13,9 +13,7 @@ app.use(express.static('public', {
     index: false
 }))
 app.get('/', (req, res) => {
-    res.render('index', {
-        name: 'Alex'
-    })
+    res.redirect('/todos')
 })
 app.get('/todos', (req, res) => {
     const filter = {
