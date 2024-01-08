@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "DigitalBrainstem.javascript-ejs-support",
+    "EditorConfig.EditorConfig",
+    "esbenp.prettier-vscode",
+    "humao.rest-client"
+  ]
+}
