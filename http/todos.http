@@ -1,0 +1,19 @@
+@url = http://localhost:3000
+
+### load all todos
+
+GET {{url}}/todos
+# Accept: application/json
+
+### get single todo
+
+GET {{url}}/todos/1
+# Accept: application/json
+
+### create a new todo
+POST {{url}}/todos
+Content-Type: application/json
+
+{
+    
+}
