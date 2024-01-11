@@ -37,13 +37,14 @@ app.get('/todos', (req, res) => {
   res.jsonOrRender('todos', { todos: todo.allTodos(filter) });
 });
 app.get('/todos/:todoId', (req, res) => {
-  res.jsonOrRender('todo/show', req.todo);
+  res.jsonOrRender('todo/show-unchecked', req.todo);
 });
 app.post('/todos', (req, res) => {
   if (!req.body.title) return res.sendStatus(400);
 
   const result = todo.createTodo(req.body.title, req.body.description);
-  res.jsonOrRender('todo/show', result);
+  // res.jsonOrRender('todo/show-unchecked', result);
+  res.redirect('back');
 });
 app.put('/todos/:todoId', (req, res) => {
   const result = todo.updateTodo(
@@ -54,7 +55,8 @@ app.put('/todos/:todoId', (req, res) => {
   );
   if (!result) return res.status(404).send('kein todo für todoId gefunden');
 
-  res.jsonOrRender('todo/show', result);
+  // res.jsonOrRender('todo/show-unchecked', result);
+  res.redirect('back');
 });
 app.delete('/todos/:todoId', (req, res) => {
   todo.deleteTodo(req.todo.id);

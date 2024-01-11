@@ -1,22 +1,46 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ToDos</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.5.0/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.5.0/dist/full.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
+  </head>
 
-<body>
-    <ul>
-        <% todos.forEach(function(todo){ %>
-            <%- include('todo/show', todo); %>
-        <% }); %>
-    </ul>
-    <%- include('todo/create'); %>
-</body>
-
+  <body>
+    <div class="w-full bg-gray-100 pt-8">
+      <div class="bg-white p-3 max-w-md mx-auto">
+        <div class="text-center">
+          <h1 class="text-3xl font-bold">ToDo App</h1>
+          <%- include('todo/create'); %>
+        </div>
+        <div class="mt-8">
+          <ul>
+            <% todos.sort((a, b) => b.id - a.id).forEach(function(todo){ %>
+            <li class="p-2 rounded-lg">
+              <% if (todo.finished) { %> <%- include('todo/show-checked', todo);
+              %> <% } else { %> <%- include('todo/show-unchecked', todo); %> <%
+              } %>
+              <hr class="mt-2" />
+            </li>
+            <% }); %>
+          </ul>
+        </div>
+        <div class="mt-8">
+          <button class="border-2 border-red-500 p-2 text-red-500">
+            Clear Completed Task
+          </button>
+          <button class="border-2 border-indigo-500 p-2 text-indigo-500 ml-4">
+            Reset Todo List
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

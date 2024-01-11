@@ -1,0 +1,7 @@
+<div class="container mx-auto px-4">
+  <ul>
+    <% todos.forEach(function(todo){ %> <%- include('todo/show', todo); %> <%
+    }); %>
+  </ul>
+  <%- include('todo/create'); %>
+</div>
